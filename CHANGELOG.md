@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [5.2.0] - 2022-05-XX
+
+### Added
+- Added Keycloak 18 support
+
 ## [5.1.0] - 2022-04-08
 
 ### Added
