@@ -30,7 +30,7 @@ import jakarta.validation.constraints.NotNull;
  * This saves us from having to define a keycloak address for the normalization usage, since we don't actually need to
  * talk to a keycloak instance, and we only need to know the version.
  */
-@ConfigurationProperties(prefix = "keycloak.normalize", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "normalize", ignoreUnknownFields = false)
 @Validated
 public class NormalizationKeycloakConfigProperties {
 
