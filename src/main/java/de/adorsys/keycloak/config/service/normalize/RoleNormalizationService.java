@@ -65,6 +65,12 @@ public class RoleNormalizationService {
         if (!realmRoles.isEmpty()) {
             normalizedRoles.setRealm(realmRoles);
         }
+
+        // avoid generating an empty roles element
+        if (normalizedRoles.getRealm() == null || (normalizedRoles.getRealm().isEmpty() && normalizedRoles.getClient().isEmpty())) {
+            return null;
+        }
+
         return normalizedRoles;
     }
 
