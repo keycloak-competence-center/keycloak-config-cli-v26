@@ -21,18 +21,16 @@
 package de.adorsys.keycloak.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /*
  * Duplicated prefix keycloak. Since only one of the two classes is loaded (depending on configuration) this is fine.
  * This saves us from having to define a keycloak address for the normalization usage, since we don't actually need to
  * talk to a keycloak instance, and we only need to know the version.
  */
-@ConfigurationProperties(prefix = "keycloak", ignoreUnknownFields = false)
-@ConstructorBinding
+@ConfigurationProperties(prefix = "keycloak.normalize", ignoreUnknownFields = false)
 @Validated
 public class NormalizationKeycloakConfigProperties {
 

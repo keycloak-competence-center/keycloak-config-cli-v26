@@ -21,6 +21,7 @@
 package de.adorsys.keycloak.config.service;
 
 import de.adorsys.keycloak.config.exception.ImportProcessingException;
+import de.adorsys.keycloak.config.exception.InvalidImportException;
 import de.adorsys.keycloak.config.model.RealmImport;
 import de.adorsys.keycloak.config.repository.AuthenticatorConfigRepository;
 import de.adorsys.keycloak.config.repository.ExecutionFlowRepository;
@@ -146,6 +147,13 @@ public class ExecutionFlowsImportService {
                 subFlow.getAlias(), topLevelFlowToImport.getAlias(),
                 executionToImport.getFlowAlias(), realmImport.getRealm()
         );
+
+        if (!Objects.equals(executionToImport.getAuthenticator(), null) && !Objects.equals(subFlow.getProviderId(), "form-flow")) {
+            throw new InvalidImportException(String.format(
+                    "Execution property authenticator '%s' can be only set if the sub-flow '%s' type is 'form-flow'.",
+                    executionToImport.getAuthenticator(), subFlow.getAlias()
+            ));
+        }
 
         HashMap<String, String> executionFlow = new HashMap<>();
         executionFlow.put("alias", executionToImport.getFlowAlias());

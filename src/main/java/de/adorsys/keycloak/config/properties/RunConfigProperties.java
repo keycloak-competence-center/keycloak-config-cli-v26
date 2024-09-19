@@ -21,12 +21,10 @@
 package de.adorsys.keycloak.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.validation.annotation.Validated;
 
 @ConfigurationProperties(prefix = "run", ignoreUnknownFields = false)
-@ConstructorBinding
 @Validated
 public class RunConfigProperties {
 
