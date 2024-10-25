@@ -60,6 +60,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <keycloak.version>${keycloak.version}</keycloak.version>
+        <keycloak-clients.version>${keycloak-clients.version}</keycloak-clients.version>
 
         <checkstyle-plugin.version>3.3.1</checkstyle-plugin.version>
         <checkstyle.version>10.17.0</checkstyle.version>
@@ -177,7 +178,7 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
-            <version>${keycloak.version}</version>
+            <version>${keycloak-clients.version}</version>
         </dependency>
 
         <dependency>
@@ -963,6 +964,7 @@ import org.keycloak.representations.userprofile.config.UPConfig;</token>
             </activation>
             <properties>
                 <keycloak.version>26.0.2</keycloak.version>
+                <keycloak-clients.version>26.0.1</keycloak-clients.version>
             </properties>
         </profile>
         <!-- Configure the JBoss GA Maven repository -->
