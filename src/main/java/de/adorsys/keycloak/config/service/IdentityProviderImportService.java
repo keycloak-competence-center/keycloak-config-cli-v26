@@ -64,6 +64,9 @@ public class IdentityProviderImportService {
 
     private void createOrUpdateOrDeleteIdentityProviders(RealmImport realmImport) {
         String realmName = realmImport.getRealm();
+        // Note that the usage of RealmRepresentation#getIdentityProviders() is fine here, as we use it for configuration
+        // and not for determining the available realms.
+        // See: https://www.keycloak.org/docs/26.0.2/upgrading/#identity-providers-no-longer-available-from-the-realm-representation
         List<IdentityProviderRepresentation> identityProviders = realmImport.getIdentityProviders();
         List<IdentityProviderRepresentation> existingIdentityProviders = identityProviderRepository.getAll(realmName);
 

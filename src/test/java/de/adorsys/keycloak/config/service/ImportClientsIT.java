@@ -27,6 +27,7 @@ import de.adorsys.keycloak.config.exception.KeycloakRepositoryException;
 import de.adorsys.keycloak.config.model.RealmImport;
 import de.adorsys.keycloak.config.properties.ImportConfigProperties;
 import de.adorsys.keycloak.config.properties.KeycloakConfigProperties;
+import de.adorsys.keycloak.config.repository.IdentityProviderRepository;
 import de.adorsys.keycloak.config.test.util.SubGroupUtil;
 import de.adorsys.keycloak.config.util.VersionUtil;
 import org.junit.jupiter.api.Order;
@@ -84,6 +85,9 @@ class ImportClientsIT extends AbstractImportIT {
 
     @Autowired
     private KeycloakConfigProperties properties;
+
+    @Autowired
+    public IdentityProviderRepository identityProviderRepository;
 
     ImportClientsIT() {
         this.resourcePath = "import-files/clients";
@@ -2610,11 +2614,7 @@ class ImportClientsIT extends AbstractImportIT {
     }
 
     private IdentityProviderRepresentation getIdentityProviderByAlias(RealmRepresentation realm, String alias) {
-        return realm.getIdentityProviders()
-                .stream()
-                .filter(s -> Objects.equals(s.getAlias(), alias))
-                .findFirst()
-                .orElse(null);
+        return identityProviderRepository.getByAlias(realm.getRealm(), alias);
     }
 
     private RoleRepresentation getRealmRoleByName(RealmRepresentation realm, String name) {

@@ -21,10 +21,12 @@
 package de.adorsys.keycloak.config.service;
 
 import de.adorsys.keycloak.config.AbstractImportIT;
+import de.adorsys.keycloak.config.repository.IdentityProviderRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.keycloak.representations.idm.*;
 import org.keycloak.representations.idm.authorization.ResourceRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 
 import java.io.IOException;
@@ -54,6 +56,9 @@ import static org.hamcrest.Matchers.is;
 @SuppressWarnings({"java:S5961", "java:S5976"})
 class ImportManagedNoDeleteIT extends AbstractImportIT {
     private static final String REALM_NAME = "realmWithNoDelete";
+
+    @Autowired
+    public IdentityProviderRepository identityProviderRepository;
 
     ImportManagedNoDeleteIT() {
         this.resourcePath = "import-files/managed-no-delete";
@@ -134,7 +139,7 @@ class ImportManagedNoDeleteIT extends AbstractImportIT {
         assertThat(createdAuthenticationFlows, hasSize(3));
 
         List<String> identityProviderList = Arrays.asList("my-first-idp", "my-second-idp");
-        List<IdentityProviderRepresentation> createdIdentityProviders = createdRealm.getIdentityProviders()
+        List<IdentityProviderRepresentation> createdIdentityProviders = identityProviderRepository.getAll(createdRealm.getRealm())
                 .stream()
                 .filter((identityProvider) -> identityProviderList.contains(identityProvider.getAlias()))
                 .toList();
