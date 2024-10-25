@@ -21,7 +21,9 @@
 package de.adorsys.keycloak.config.service;
 
 import de.adorsys.keycloak.config.AbstractImportIT;
+import de.adorsys.keycloak.config.repository.IdentityProviderMapperRepository;
 import de.adorsys.keycloak.config.repository.IdentityProviderRepository;
+import de.adorsys.keycloak.config.repository.RealmRepository;
 import de.adorsys.keycloak.config.util.VersionUtil;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -43,6 +45,9 @@ class ImportIdentityProvidersIT extends AbstractImportIT {
 
     @Autowired
     public IdentityProviderRepository identityProviderRepository;
+
+    @Autowired
+    public IdentityProviderMapperRepository identityProviderMapperRepository;
 
     ImportIdentityProvidersIT() {
         this.resourcePath = "import-files/identity-providers";
@@ -368,10 +373,10 @@ class ImportIdentityProvidersIT extends AbstractImportIT {
             assertThat(updatedIdentityProviderConfig.get("clientSecret"), is("example-client-secret"));
         }
 
-        List<IdentityProviderMapperRepresentation> identityProviderMappers = createdRealm.getIdentityProviderMappers();
+        List<IdentityProviderMapperRepresentation> identityProviderMappers = identityProviderMapperRepository.getAll(createdRealm.getRealm());
         assertThat(identityProviderMappers.size(), is(1));
 
-        IdentityProviderMapperRepresentation myUsernameMapper = createdRealm.getIdentityProviderMappers().stream()
+        IdentityProviderMapperRepresentation myUsernameMapper = identityProviderMappers.stream()
                 .filter(m -> m.getName().equals("my-username-mapper")).findFirst().orElse(null);
 
         assertThat(myUsernameMapper, notNullValue());
@@ -432,10 +437,10 @@ class ImportIdentityProvidersIT extends AbstractImportIT {
             assertThat(updatedIdentityProviderConfig.get("clientSecret"), is("example-client-secret"));
         }
 
-        List<IdentityProviderMapperRepresentation> identityProviderMappers = createdRealm.getIdentityProviderMappers();
+        List<IdentityProviderMapperRepresentation> identityProviderMappers = identityProviderMapperRepository.getAll(createdRealm.getRealm());
         assertThat(identityProviderMappers.size(), is(1));
 
-        IdentityProviderMapperRepresentation myUsernameMapper = createdRealm.getIdentityProviderMappers().stream()
+        IdentityProviderMapperRepresentation myUsernameMapper = identityProviderMappers.stream()
                 .filter(m -> m.getName().equals("my-username-mapper")).findFirst().orElse(null);
 
         assertThat(myUsernameMapper, notNullValue());
@@ -496,10 +501,10 @@ class ImportIdentityProvidersIT extends AbstractImportIT {
             assertThat(updatedIdentityProviderConfig.get("clientSecret"), is("example-client-secret"));
         }
 
-        List<IdentityProviderMapperRepresentation> identityProviderMappers = createdRealm.getIdentityProviderMappers();
+        List<IdentityProviderMapperRepresentation> identityProviderMappers = identityProviderMapperRepository.getAll(createdRealm.getRealm());
         assertThat(identityProviderMappers.size(), is(1));
 
-        IdentityProviderMapperRepresentation myUsernameMapper = createdRealm.getIdentityProviderMappers().stream()
+        IdentityProviderMapperRepresentation myUsernameMapper = identityProviderMappers.stream()
                 .filter(m -> m.getName().equals("my-username-mapper")).findFirst().orElse(null);
 
         assertThat(myUsernameMapper, notNullValue());
@@ -560,10 +565,10 @@ class ImportIdentityProvidersIT extends AbstractImportIT {
             assertThat(updatedIdentityProviderConfig.get("clientSecret"), is("example-client-secret"));
         }
 
-        List<IdentityProviderMapperRepresentation> identityProviderMappers = createdRealm.getIdentityProviderMappers();
+        List<IdentityProviderMapperRepresentation> identityProviderMappers = identityProviderMapperRepository.getAll(createdRealm.getRealm());
         assertThat(identityProviderMappers.size(), is(1));
 
-        IdentityProviderMapperRepresentation myUsernameMapper = createdRealm.getIdentityProviderMappers().stream()
+        IdentityProviderMapperRepresentation myUsernameMapper = identityProviderMappers.stream()
                 .filter(m -> m.getName().equals("my-changed-username-mapper")).findFirst().orElse(null);
 
         assertThat(myUsernameMapper, notNullValue());
@@ -624,7 +629,7 @@ class ImportIdentityProvidersIT extends AbstractImportIT {
             assertThat(updatedIdentityProviderConfig.get("clientSecret"), is("example-client-secret"));
         }
 
-        List<IdentityProviderMapperRepresentation> identityProviderMappers = createdRealm.getIdentityProviderMappers();
+        List<IdentityProviderMapperRepresentation> identityProviderMappers = identityProviderMapperRepository.getAll(createdRealm.getRealm());
         assertThat(identityProviderMappers, empty());
     }
 

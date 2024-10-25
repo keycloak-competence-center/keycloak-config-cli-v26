@@ -21,6 +21,7 @@
 package de.adorsys.keycloak.config.service;
 
 import de.adorsys.keycloak.config.AbstractImportIT;
+import de.adorsys.keycloak.config.repository.IdentityProviderMapperRepository;
 import de.adorsys.keycloak.config.repository.IdentityProviderRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -59,6 +60,9 @@ class ImportManagedNoDeleteIT extends AbstractImportIT {
 
     @Autowired
     public IdentityProviderRepository identityProviderRepository;
+
+    @Autowired
+    public IdentityProviderMapperRepository identityProviderMapperRepository;
 
     ImportManagedNoDeleteIT() {
         this.resourcePath = "import-files/managed-no-delete";
@@ -146,7 +150,7 @@ class ImportManagedNoDeleteIT extends AbstractImportIT {
         assertThat(createdIdentityProviders, hasSize(2));
 
         List<String> identityProviderMapperList = Arrays.asList("my-first-idp-mapper", "my-second-idp-mapper");
-        List<IdentityProviderMapperRepresentation> createdIdentityProviderMappers = createdRealm.getIdentityProviderMappers()
+        List<IdentityProviderMapperRepresentation> createdIdentityProviderMappers = identityProviderMapperRepository.getAll(createdRealm.getRealm())
                 .stream()
                 .filter((identityProviderMapper) -> identityProviderMapperList.contains(identityProviderMapper.getName()))
                 .toList();

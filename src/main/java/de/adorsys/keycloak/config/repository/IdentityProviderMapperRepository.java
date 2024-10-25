@@ -39,14 +39,17 @@ public class IdentityProviderMapperRepository {
 
     private final RealmRepository realmRepository;
 
+    private final IdentityProviderRepository identityProviderRepository;
+
     @Autowired
-    public IdentityProviderMapperRepository(RealmRepository realmRepository) {
+    public IdentityProviderMapperRepository(RealmRepository realmRepository, IdentityProviderRepository identityProviderRepository) {
         this.realmRepository = realmRepository;
+        this.identityProviderRepository = identityProviderRepository;
     }
 
     public Optional<IdentityProviderMapperRepresentation> search(String realmName, String identityProviderAlias, String name) {
         List<IdentityProviderMapperRepresentation> identityProviderMappers = realmRepository
-                .get(realmName).getIdentityProviderMappers();
+                .getResource(realmName).identityProviders().get(identityProviderAlias).getMappers();
 
         if (identityProviderMappers == null) {
             return Optional.empty();
@@ -65,10 +68,9 @@ public class IdentityProviderMapperRepository {
 
     public List<IdentityProviderMapperRepresentation> getAll(String realmName) {
         List<IdentityProviderMapperRepresentation> mappers = new ArrayList<>();
-        IdentityProvidersResource identityProvidersResource = realmRepository
-                .getResource(realmName).identityProviders();
 
-        List<IdentityProviderRepresentation> identityProviders = identityProvidersResource.findAll();
+        List<IdentityProviderRepresentation> identityProviders = identityProviderRepository.getAll(realmName);
+        IdentityProvidersResource identityProvidersResource = realmRepository.getResource(realmName).identityProviders();
 
         for (IdentityProviderRepresentation identityProvider : identityProviders) {
             mappers.addAll(identityProvidersResource.get(identityProvider.getAlias()).getMappers());
