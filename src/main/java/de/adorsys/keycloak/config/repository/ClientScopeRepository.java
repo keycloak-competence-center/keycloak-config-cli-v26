@@ -23,8 +23,6 @@ package de.adorsys.keycloak.config.repository;
 import de.adorsys.keycloak.config.exception.ImportProcessingException;
 import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
 import de.adorsys.keycloak.config.util.ResponseUtil;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.ClientScopeResource;
 import org.keycloak.admin.client.resource.ClientScopesResource;
 import org.keycloak.admin.client.resource.ProtocolMappersResource;
@@ -37,6 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 
 @Service
 public class ClientScopeRepository {

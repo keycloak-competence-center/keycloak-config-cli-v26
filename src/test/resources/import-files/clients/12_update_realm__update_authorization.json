@@ -342,13 +342,25 @@
         "name": "user_premium",
         "description": "User Premium privileges"
       }
-    ]
+    ],
+    "client": {
+      "auth-moped-client": [
+      {
+        "name": "uma_protection",
+        "description": "UMA Protection Role",
+        "clientRole": true
+      }
+      ]
+    }
   },
   "users": [
     {
       "username": "service-account-auth-moped-client",
       "enabled": true,
-      "serviceAccountClientId": "auth-moped-client"
+      "serviceAccountClientId": "auth-moped-client",
+      "clientRoles": {
+        "auth-moped-client": ["uma_protection"]
+      }
     }
   ]
 }

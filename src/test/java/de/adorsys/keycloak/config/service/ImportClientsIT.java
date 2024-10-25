@@ -758,14 +758,15 @@ class ImportClientsIT extends AbstractImportIT {
     @Test
     @Order(12)
     void shouldUpdateRealmUpdateAuthorization() throws IOException {
+
+        doImport("12_update_realm__update_authorization.json");
+
         // https://github.com/adorsys/keycloak-config-cli/issues/641
         ResourceRepresentation resource = new ResourceRepresentation();
         resource.setName("Tweedl Social Service");
         resource.setType("http://www.example.com/rsrcs/socialstream/140-compatible");
         resource.setIconUri("http://www.example.com/icons/sharesocial.png");
         createRemoteManagedClientResource(REALM_NAME, "auth-moped-client", "changed-special-client-secret", resource);
-
-        doImport("12_update_realm__update_authorization.json");
 
         RealmRepresentation realm = keycloakProvider.getInstance().realm(REALM_NAME).partialExport(false, true);
         assertThat(realm.getRealm(), is(REALM_NAME));

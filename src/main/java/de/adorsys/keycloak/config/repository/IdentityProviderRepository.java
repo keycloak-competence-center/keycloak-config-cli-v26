@@ -23,8 +23,6 @@ package de.adorsys.keycloak.config.repository;
 import de.adorsys.keycloak.config.provider.KeycloakProvider;
 import de.adorsys.keycloak.config.resource.ManagementPermissions;
 import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.IdentityProviderResource;
 import org.keycloak.admin.client.resource.IdentityProvidersResource;
 import org.keycloak.representations.idm.IdentityProviderRepresentation;
@@ -34,6 +32,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response;
 
 @Service
 public class IdentityProviderRepository {

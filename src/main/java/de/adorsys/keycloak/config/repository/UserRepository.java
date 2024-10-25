@@ -22,7 +22,6 @@ package de.adorsys.keycloak.config.repository;
 
 import de.adorsys.keycloak.config.exception.KeycloakRepositoryException;
 import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
-import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
@@ -33,6 +32,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.ws.rs.core.Response;
 
 @Service
 public class UserRepository {

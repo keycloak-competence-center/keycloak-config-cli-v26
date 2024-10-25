@@ -24,8 +24,6 @@ import de.adorsys.keycloak.config.exception.ImportProcessingException;
 import de.adorsys.keycloak.config.exception.KeycloakRepositoryException;
 import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
 import de.adorsys.keycloak.config.util.ResponseUtil;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.ClientsResource;
 import org.keycloak.representations.idm.ClientRepresentation;
@@ -44,6 +42,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 
 @Service
 public class ClientRepository {
