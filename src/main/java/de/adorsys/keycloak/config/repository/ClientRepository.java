@@ -22,8 +22,10 @@ package de.adorsys.keycloak.config.repository;
 
 import de.adorsys.keycloak.config.exception.ImportProcessingException;
 import de.adorsys.keycloak.config.exception.KeycloakRepositoryException;
+import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
 import de.adorsys.keycloak.config.util.ResponseUtil;
-import org.keycloak.admin.client.CreatedResponseUtil;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.ClientsResource;
 import org.keycloak.representations.idm.ClientRepresentation;
@@ -42,9 +44,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 
 @Service
 public class ClientRepository {
@@ -115,7 +114,7 @@ public class ClientRepository {
 
     public void create(String realmName, ClientRepresentation client) {
         try (Response response = getResource(realmName).create(client)) {
-            CreatedResponseUtil.getCreatedId(response);
+            DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         } catch (WebApplicationException error) {
             String errorMessage = ResponseUtil.getErrorMessage(error);
 
@@ -176,7 +175,7 @@ public class ClientRepository {
         ClientResource clientResource = getResourceById(realmName, id);
 
         try (Response response = clientResource.authorization().resources().create(resource)) {
-            CreatedResponseUtil.getCreatedId(response);
+            DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         }
     }
 
@@ -214,7 +213,7 @@ public class ClientRepository {
         ClientResource clientResource = getResourceById(realmName, id);
 
         try (Response response = clientResource.authorization().scopes().create(new ScopeRepresentation(name))) {
-            CreatedResponseUtil.getCreatedId(response);
+            DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         }
     }
 
@@ -244,7 +243,7 @@ public class ClientRepository {
         ClientResource clientResource = getResourceById(realmName, id);
 
         try (Response response = clientResource.authorization().policies().create(policy)) {
-            CreatedResponseUtil.getCreatedId(response);
+            DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         }
     }
 

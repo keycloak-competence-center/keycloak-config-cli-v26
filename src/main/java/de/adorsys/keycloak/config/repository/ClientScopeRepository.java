@@ -21,8 +21,10 @@
 package de.adorsys.keycloak.config.repository;
 
 import de.adorsys.keycloak.config.exception.ImportProcessingException;
+import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
 import de.adorsys.keycloak.config.util.ResponseUtil;
-import org.keycloak.admin.client.CreatedResponseUtil;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.ClientScopeResource;
 import org.keycloak.admin.client.resource.ClientScopesResource;
 import org.keycloak.admin.client.resource.ProtocolMappersResource;
@@ -35,9 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 
 @Service
 public class ClientScopeRepository {
@@ -79,7 +78,7 @@ public class ClientScopeRepository {
 
     public void create(String realmName, ClientScopeRepresentation clientScope) {
         try (Response response = realmRepository.getResource(realmName).clientScopes().create(clientScope)) {
-            CreatedResponseUtil.getCreatedId(response);
+            DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         }
     }
 
@@ -99,7 +98,7 @@ public class ClientScopeRepository {
 
         for (ProtocolMapperRepresentation protocolMapper : protocolMappers) {
             try (Response response = protocolMappersResource.createMapper(protocolMapper)) {
-                CreatedResponseUtil.getCreatedId(response);
+                DebugFriendlyCreatedResponseUtil.getCreatedId(response);
             }
         }
     }

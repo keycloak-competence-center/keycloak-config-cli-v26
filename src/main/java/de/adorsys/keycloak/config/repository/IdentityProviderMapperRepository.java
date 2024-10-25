@@ -20,7 +20,8 @@
 
 package de.adorsys.keycloak.config.repository;
 
-import org.keycloak.admin.client.CreatedResponseUtil;
+import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
+import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.IdentityProviderResource;
 import org.keycloak.admin.client.resource.IdentityProvidersResource;
 import org.keycloak.representations.idm.IdentityProviderMapperRepresentation;
@@ -32,8 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import jakarta.ws.rs.core.Response;
 
 @Service
 public class IdentityProviderMapperRepository {
@@ -83,7 +82,7 @@ public class IdentityProviderMapperRepository {
                 .get(identityProviderMapper.getIdentityProviderAlias());
 
         try (Response response = resource.addMapper(identityProviderMapper)) {
-            CreatedResponseUtil.getCreatedId(response);
+            DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         }
     }
 

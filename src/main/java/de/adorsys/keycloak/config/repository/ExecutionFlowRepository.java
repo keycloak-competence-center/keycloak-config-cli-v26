@@ -22,7 +22,9 @@ package de.adorsys.keycloak.config.repository;
 
 import de.adorsys.keycloak.config.exception.ImportProcessingException;
 import de.adorsys.keycloak.config.exception.KeycloakRepositoryException;
-import org.keycloak.admin.client.CreatedResponseUtil;
+import de.adorsys.keycloak.config.util.DebugFriendlyCreatedResponseUtil;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.resource.AuthenticationManagementResource;
 import org.keycloak.representations.idm.AuthenticationExecutionExportRepresentation;
 import org.keycloak.representations.idm.AuthenticationExecutionInfoRepresentation;
@@ -37,9 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 
 @Service
 public class ExecutionFlowRepository {
@@ -114,7 +113,7 @@ public class ExecutionFlowRepository {
                 .getFlowResources(realmName);
 
         try (Response response = flowsResource.addExecution(executionToCreate)) {
-            return CreatedResponseUtil.getCreatedId(response);
+            return DebugFriendlyCreatedResponseUtil.getCreatedId(response);
         } catch (WebApplicationException error) {
             AuthenticationFlowRepresentation parentFlow = authenticationFlowRepository
                     .getFlowById(realmName, executionToCreate.getParentFlow());
